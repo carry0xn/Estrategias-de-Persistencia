@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,11 +14,13 @@
     "mariadb": "^2.3.1",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11",
-    "sequelize": "^5.22.5",
+    "sequelize": "^5.21.2",
     "sequelize-cli": "^5.5.1"
   },
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
