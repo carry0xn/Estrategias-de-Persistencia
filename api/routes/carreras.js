@@ -2,6 +2,19 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models");
 
+/**
+* @swagger
+* path:
+* /api/docs:
+* get:
+*     summary: abc
+*     description: abc
+*     produces:
+*       - application/json
+*
+*
+*/
+
 router.get("/", (req, res) => {
   console.log("Esto es un mensaje para ver en consola");
   models.carrera

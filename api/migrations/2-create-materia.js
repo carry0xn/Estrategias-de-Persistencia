@@ -12,10 +12,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       id_carrera: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       id_profesor: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        foreignKey: true //buscar documentacion
       },
       createdAt: {
         allowNull: false,

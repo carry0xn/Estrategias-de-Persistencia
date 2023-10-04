@@ -3,14 +3,15 @@ module.exports = (sequelize, DataTypes) => {
   const profesor = sequelize.define('profesor', {
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
-    dni: DataTypes.INTEGER
+    dni: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    }
   }, {});
 
-  materia.associate = (models) => {
-    materia.hasMany(models.materia, {
-      foreignKey: 'id_materia'
-    })
+  profesor.associate = function (models){
+    profesor.hasMany(models.materia)
   }
   
-  return materia;
+  return profesor;
 };
