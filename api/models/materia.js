@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const materia = sequelize.define('materia', {
     id: {
@@ -6,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     nombre: DataTypes.STRING,
+    id_carrera: DataTypes.INTEGER,
     id_profesor: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'profesor', // 'fathers' refers to table name
-        key: 'dni', // 'id' refers to column name in fathers table
+        key: 'dni'
       }
     }
 
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   materia.associate = function (models){
     materia.belongsTo(models.carrera, {
       as: 'Carrera-Relacionada',
-      foreignKey: 'id'
+      foreignKey: 'id_carrera'
     })
 
     materia.belongsTo(models.profesor, {

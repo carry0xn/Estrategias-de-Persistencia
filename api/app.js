@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/car', carrerasRouter);
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
