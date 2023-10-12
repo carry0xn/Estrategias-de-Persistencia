@@ -13,5 +13,5 @@ module.exports = (sequelize, DataTypes) => {
     estudiante.hasMany(models.materia)
   }
   
-  return profesor;
+  return estudiante;
 };
