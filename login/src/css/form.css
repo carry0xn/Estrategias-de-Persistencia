@@ -1,0 +1,155 @@
+form{
+    background-color: #fff;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #000000;
+    justify-content: center;
+}
+
+form p {
+    color: #009688;
+    text-decoration: underline;
+    cursor: pointer;
+}
+form a {
+    color: #007267;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logIn{
+    text-align: center;
+    background-color: #dfe3e7;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+/* Estilos para la sección de nombre y apellido */
+.nombre-apellido {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nombre-apellido .form {
+    width: 48%;
+}
+
+/* Estilos para la sección de fecha de nacimiento */
+.fecha-container {
+    text-align: center;
+}
+.fecha{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Tamaño del campo de fecha */
+.fecha-container .form input,
+.fecha-container .form select {
+    width: 100px; 
+}
+
+/* Estilos para los géneros y círculos */
+.genero-container fieldset {
+    border: none;
+    padding: 0;
+}
+
+.cuadro-genero {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.genero-container .genero-options {
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px; 
+}
+
+.genero-container .genero-option {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.genero-container .genero-option label {
+    display: flex;
+    align-items: center;
+}
+
+.genero-container .genero-option label span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin-left: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.genero-container .genero-option input[type="radio"] {
+    display: none; /* Oculta los botones de radio */
+}
+
+/* Estilo para los botones de radio seleccionados */
+.genero-container .genero-option input[type="radio"]:checked + label span {
+    background-color: #333; /* Cambia el fondo del círculo cuando está seleccionado */
+    border-color: #000000; /* Cambia el borde del círculo cuando está seleccionado */
+    background-size: 80%; /* Cambia el tamaño del círculo cuando está seleccionado */
+}
+
+/* Estilos para el botón de enviar */
+.boton {
+    font-size: 15px;
+    background-color: #51666c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.boton:hover {
+    background-color: #009688;
+}
+.botones-div{
+    justify-content: center;
+    text-align: center;
+}
+.botones{
+    font-size: 35px;
+    background-color: #00A2C8;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+.botones:hover {
+    background-color: #00e4cd;
+}
+
+.login-entrar{
+    font-size: 25px;
+}

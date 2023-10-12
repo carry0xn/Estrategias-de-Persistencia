@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <title>Formulario de Registro</title>
+</head>
+<html>
+<body class="logIn">
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="login-entrar">
+                
+                </div>
+            </div>
+            <div class="header-bottom">
+                <img src="./src/img/iso_unahur.png" class="logo-unahur">
+                <h1>Campus 2023 UNaHur</h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <div class="nombre-apellido">
+            <div class="form">
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+            </div>
+
+            <div class="form">
+                <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+            </div>
+        </div>
+
+        <div class="form">
+            <input type="text" id="correo" name="correo" placeholder="Correo o Número" required>
+        </div>
+
+        <div class="form">
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+        </div>
+
+        <div class="fecha-container">
+            <p>Fecha de nacimiento</p>
+
+            <div class="fecha">
+                <div class="form">
+                    <input type="number" id="dia" name="dia" min="1" max="31" placeholder="Día" required>
+                </div>
+
+                <div class="form">
+                    <select id="mes" name="mes" required>
+                        <option value="Enero">Enero</option>
+                        <option value="Febrero">Febrero</option>
+                        <option value="Marzo">Marzo</option>
+                        <option value="Abril">Abril</option>
+                        <option value="Mayo">Mayo</option>
+                        <option value="Junio">Junio</option>
+                        <option value="Julio">Julio</option>
+                        <option value="Agosto">Agosto</option>
+                        <option value="Septiembre">Septiembre</option>
+                        <option value="Octubre">Octubre</option>
+                        <option value="Noviembre">Noviembre</option>
+                        <option value="Diciembre">Diciembre</option>
+                    </select>
+                </div>
+
+                <div class="form">
+                    <input type="number" id="ano" name="ano" min="1900" max="2023" placeholder="Año" required>
+                </div>
+            </div>
+        </div>
+        <div class="genero-container">
+            <fieldset>
+                <p>Género</p>
+                <div class="cuadro-genero">
+                    <div class="genero-option">
+                        <input type="radio" id="hombre" name="sexo" value="hombre" required>
+                        <label for="hombre">Hombre <span></span></label>
+                    </div>
+
+                    <div class="genero-option">
+                        <input type="radio" id="mujer" name="sexo" value="mujer" required>
+                        <label for="mujer">Mujer <span></span></label>
+                    </div>
+
+                    <div class="genero-option">
+                        <input type="radio" id="otro" name="sexo" value="otro" required>
+                        <label for="otro">Otros <span></span></label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <a href="bienvenida.html"><input class="boton" type="submit" value="Registrate"></a>
+
+        <a href="./logIn.html"><p>¿Ya tienes cuenta?</p></a>
+    </form>
+    <script src="./src/JS/bienvenida.js"></script>
+    <script src="./src/JS/login.js"></script>
+</body>
+</html>

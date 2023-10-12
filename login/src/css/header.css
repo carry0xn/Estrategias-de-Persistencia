@@ -1,0 +1,45 @@
+/* Encabezado */
+header{
+    width: 100%;
+}
+.header-top {
+    background-color: #4ea1b1; /* Color azul para la parte superior del encabezado */
+    color: #fff;
+    padding: 10px 10px;
+    border-bottom: 2px solid #fff; /* Línea blanca separadora */
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end; /* Centramos el contenido al final (derecha) del contenedor */
+    align-items: center; /* Centramos verticalmente el contenido */
+}
+
+/* Estilos para la parte inferior del encabezado (celeste) */
+.header-bottom {
+    background-color: #95c6d0; /* Color celeste para la parte inferior del encabezado */
+    display: flex;
+    width: 100%;
+    padding: 5px 5px;
+}
+.container {
+    width: 100%;
+}
+.login-entrar{
+    margin-right: 15px;
+}
+.login-entrar a {
+    text-decoration: none;
+    background-color: #c64543;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.logo-unahur{
+    margin-top: 10px;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+}
+.header-bottom h1 {
+    color: #fff;
+}
