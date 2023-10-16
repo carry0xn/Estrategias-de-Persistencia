@@ -1,66 +1,50 @@
-const createError = require('http-errors');
 const express = require('express');
+const app = express();
+const logger = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const jwt = require('jsonwebtoken')
-const swaggerUI = require('swagger-ui-express')
-const carrerasRouter = require('./routes/carreras');
-const { swaggerSpec } = require('./swagger');
-const swaggerJSDoc = require('swagger-jsdoc');
-const app = express();
+const { swaggerUI, swaggerSpec } = require('./swagger');
+const carrerasRoutes = require('./routes/Carreras');
+const materiasRoutes = require('./routes/Materias');
+const usuariosRoutes = require('./routes/Usuarios');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-app.use(logger('dev'));
+const PORT = process.env.PORT || 3000;
+
+// Middlewares
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use(logger('dev'));
+
+// Pug
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'pug');
+// Vue
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// Swagger
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/car', carrerasRouter);
 
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// Routes
+app.use('/api/carreras', carrerasRoutes);
+//app.use('/api/materias', materiasRoutes);
+//app.use('/api/usuarios', usuariosRoutes);
 
-
-
-// error handler
-app.use(function(err, req, res, next) {
+// Handle Error
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = err;
 
   // render the error page
+  //res.render('error');
+  console.log('Something went wrong:', err.stack)
   res.status(err.status || 500);
-  res.render('error');
+  next(err)
 });
 
-/*
-const payload = {
-  userType: 'admin',
-  name: 'Caro'
-}
-
-const token = jwt.sign(payload, 'secretoSuperSecreto', { expiresIn: '3s' })
-
-tokenClient = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVHlwZSI6ImFkbWluIiwibmFtZSI6IkNhcm8iLCJpYXQiOjE2OTYzODkyMTB9.RR54cjdN0qTY_dIlBVtjLicobbx_jC5UKPepqef55NY0'
-
-jwt.verify(token, 'secretoSuperSecreto', (err, decoded) => {
-  console.log('VALIDO', err)
-})
-
-setTimeout(() => {
-jwt.verify(token, 'secretoSuperSecreto', (err, decoded) => {
-  console.log('4 segundos', err)
-})
-}, 4000);*/
-
-
-app.listen(3000, (req, res) => {
-  console.log('Server on port 3000!')
-})
+app.listen(PORT, () => {
+  console.log('Server listening on port:', PORT)
+});
 
 module.exports = app;
