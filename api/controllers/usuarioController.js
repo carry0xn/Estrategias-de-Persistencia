@@ -1,53 +1,53 @@
 const models = require("../models");
 
-const findUser = (id, onSuccess) => {
-  models.materia
+const findUsuario = (id, onSuccess) => {
+  models.usuario
     .findOne({
-      attributes: ["id", "nombre"],
+      attributes: ["dni", "nombre"],
       where: { id }
     })
-    .then(materia => (materia ? onSuccess(materia) : res.status(404)))
+    .then(usuario => (usuario ? onSuccess(usuario) : res.status(404)))
     .catch(err => res.send(err));
 };
 
-exports.getMaterias = (_, res) => {
-  models.materia
+exports.getUsuarios = (_, res) => {
+  models.usuario
     .findAll({
-      attributes: ["id", "nombre"]
+      attributes: ["dni", "nombre"]
     })
-    .then(materias => res.send(materias))
+    .then(usuarios => res.send(usuarios))
     .catch((err) => res.send(err));
 }
 
-exports.getMateria = (req, res) => {
-  findMateria(req.params.id, materia => res.send(materia));
+exports.getUsuario = (req, res) => {
+  findUsuario(req.params.id, usuario => res.send(usuario));
 }
 
-exports.createMateria = (req, res) => {
-  models.materia
+exports.createUsuario = (req, res) => {
+  models.usuario
     .create({ nombre: req.body.nombre })
-    .then(nuevaMateria => res.status(201).send(nuevaMateria))
+    .then(nuevoUser => res.status(201).send(nuevoUser))
     .catch((err) => res.send(err));
 }
 
-exports.updateMateria = (req, res) => {
-  const onSuccess = materia => {
-    materia
+exports.updateUsuario = (req, res) => {
+  const onSuccess = usuario => {
+    usuario
       .update({ nombre: req.body.nombre }, { fields: ["nombre"] })
       .then(() => res.status(200))
       .catch((err) => res.send(err));
   }
 
-  findMateria(req.params.id, onSuccess);
+  findUsuario(req.params.id, onSuccess);
 }
 
-exports.deleteMateria = (req, res) => {
-  const onSuccess = materia => {
-    materia
+exports.deleteUsuario = (req, res) => {
+  const onSuccess = usuario => {
+    usuario
       .destroy()
       .then(() => res.status(200))
       .catch((err) => res.send(err));
   }
 
-  findMateria(req.params.id, onSuccess);
+  findUsuario(req.params.id, onSuccess);
 }
