@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('estudiante', {
+    return queryInterface.createTable('administrador', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -26,6 +26,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('estudiante');
+    return queryInterface.dropTable('administrador');
   }
 };
