@@ -17,16 +17,23 @@ if (config.use_env_variable) {
 }
 
 // Reads all model files and adds their classes to *db*
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    // Extract its content as a Sequelize data type
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+function getDirectories(path) {
+  return [''].concat(fs.readdirSync(path).filter(
+    (file) => { return fs.statSync(path+'/'+file).isDirectory() }
+  ));
+}
+
+getDirectories(__dirname).forEach(directory => {
+  fs.readdirSync(__dirname+'/'+directory)
+    .filter(file => {
+      return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+    })
+    .forEach(file => {
+      // Extract its content as a Sequelize data type
+      const model = require(path.join(__dirname+'/'+directory, file))(sequelize, Sequelize.DataTypes);
+      db[model.name] = model;
+    });
+});
 
 // Associates each model to each other (???)
 Object.keys(db).forEach(modelName => {

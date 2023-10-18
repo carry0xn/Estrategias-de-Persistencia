@@ -27,8 +27,8 @@ app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 // Routes
 app.use('/api/carreras', carrerasRoutes);
-//app.use('/api/materias', materiasRoutes);
-//app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/materias', materiasRoutes);
+app.use('/api/usuarios', usuariosRoutes);
 
 // Handle Error
 app.use((err, req, res, next) => {

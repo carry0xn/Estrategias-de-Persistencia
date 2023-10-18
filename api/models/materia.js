@@ -6,27 +6,42 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
-    nombre: DataTypes.STRING,
-    id_carrera: DataTypes.INTEGER,
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    descripcion: {
+      type: DataTypes.STRING
+    },
+    id_carrera: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'carrera',
+        key: 'id'
+      }
+    },
     id_profesor: {
       type: DataTypes.INTEGER,
       references: {
-        key: 'dni'
+        model: 'profesor',
+        key: 'id'
       }
     }
-
   }, {});
 
   materia.associate = function (models){
+    // Una materia pertenece a N carreras
+    //materia.belongsToMany(models.carrera)
     materia.belongsTo(models.carrera, {
-      as: 'Carrera-Relacionada',
-      foreignKey: 'id_carrera'
+      foreignKey: {
+        fieldName: 'id_carrera',
+        require: true
+      }
     })
-
-    materia.belongsTo(models.profesor, {
-      as: 'Profesor-ACargo',
-      foreignKey: 'id_profesor'
-    })
+    
+    // Una materia es dictada por 1 profesor
+    materia.belongsTo(models.profesor)
   }
   
   return materia;
