@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
 
     // Un profesor dicta N materias
     profesor.hasMany(models.materia)
+
+    // Un profesor tiene N estudiantes
+    profesor.hasMany(models.estudiante)
   }
   
   return profesor;

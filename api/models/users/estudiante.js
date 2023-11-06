@@ -7,16 +7,30 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
       autoIncrement: true
+    },
+    id_usuario: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'usuario', 
+        key: 'dni'
+      }
+    },
+    id_carrera: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'carrera', 
+        key: 'id' 
+      }
     }
   }, {});
 
-  estudiante.associate = function (models){
-    // Un estudiante es un usuario
+    estudiante.associate = function (models){
+    //Un estudiante es un usuario
     estudiante.hasOne(models.usuario)
-
-    // Un estudiante se inscribe a N materias
+    //Un estudiante tiene una carrera
+    estudiante.belongsTo(models.carrera, { foreignKey: 'id_carrera' });
+    //Un estudiante se inscribe a N materias
     estudiante.hasMany(models.materia)
   }
-  
   return estudiante;
 };

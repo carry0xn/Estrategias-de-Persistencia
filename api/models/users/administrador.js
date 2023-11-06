@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
       autoIncrement: true
+    },
+    id_usuario: {
+      type: DataTypes.INTEGER,
+      references: {
+        key: 'dni'
+      }
     }
   }, {});
 
