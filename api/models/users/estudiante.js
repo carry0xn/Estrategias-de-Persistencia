@@ -8,29 +8,20 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true
     },
-    id_usuario: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'usuario', 
-        key: 'dni'
-      }
-    },
-    id_carrera: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'carrera', 
-        key: 'id' 
-      }
+    datoExtra: {
+      type: DataTypes.STRING,
+
     }
+
   }, {freezeTableName: true});
 
-    estudiante.associate = function (models){
+  estudiante.associate = function (models){
     //Un estudiante es un usuario
-    estudiante.hasOne(models.usuario)
+    estudiante.belongsTo(models.usuario, {foreignKey: 'dni',sourceKey: 'id_usuario'})
     //Un estudiante tiene una carrera
-    estudiante.belongsTo(models.carrera, { foreignKey: 'id_carrera' });
+    //estudiante.belongsTo(models.carrera, { foreignKey: 'id_carrera' });
     //Un estudiante se inscribe a N materias
-    estudiante.hasMany(models.materia)
+    //estudiante.hasMany(models.materia)
   }
   return estudiante;
 };

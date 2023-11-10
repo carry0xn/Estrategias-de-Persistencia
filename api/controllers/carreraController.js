@@ -25,7 +25,7 @@ exports.getCarrera = (req, res) => {
 
 exports.createCarrera = (req, res) => {
   models.carrera
-    .create({ nombre: req.body.nombre })
+    .create({ nombre: req.body.nombre, titulo: req.body.titulo })
     .then(nuevaCarrera => res.status(201).send(nuevaCarrera))
     .catch((err) => res.send(err));
 }

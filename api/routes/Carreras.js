@@ -15,7 +15,7 @@ const { getCarreras, getCarrera, createCarrera, updateCarrera, deleteCarrera } =
 
 router.get("/", getCarreras);
 router.get("/:id", getCarrera);
-router.post("/", verifyToken, createCarrera);
+router.post("/", createCarrera);
 router.put("/:id", updateCarrera);
 router.delete("/:id", deleteCarrera);
 

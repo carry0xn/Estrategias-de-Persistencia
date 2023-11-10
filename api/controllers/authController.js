@@ -1,48 +1,58 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const { usuario } = require('../models');
-const config = require('../config');
+const bcrypt = require('bcryptjs');
+const { usuario, estudiante} = require('../models');
+const config = require('../config/config')[process.env.NODE_ENV || 'production'];
 
-exports.signUp = async (req, res) => {
-  try {
-    const { dni, nombre, email, picture, password } = req.body
+const hashedPassword  = async (password) => bcrypt.hash(password, 10)
+const isValidPassword = async (password, user) => bcrypt.compare(password, user.password)
 
-    const hashedPassword = await bcrypt.hash(password, 10)
+exports.signUp = (req, res) => {
+  const { dni, nombre, email, picture, password } = req.body
+  console.log(req.body)
+  usuario.create({
+    dni,
+    nombre,
+    email,
+    picture,
+    password,//: hashedPassword(password)
+    estudiante: {
 
-    await usuario.create({
-      dni,
-      nombre,
-      email,
-      picture,
-      password: hashedPassword,
-    })
+    }
+  }, {include: [estudiante]})
+  .then((estudianteCreado) => {
+    const payload = {
+      role: 'admin',
+      dni: estudianteCreado.usuario.dni,
+      nombre: estudianteCreado.usuario.nombre,
+    }
 
-    const token = jwt.sign({ nombre }, config.secret, {
-      expiresIn: '5s'
-    })
+    const token = jwt.sign(payload, config.secret, { expiresIn: '3s' })
 
     res.json({ auth: true, token }); 
-  }
-  catch (error){ res.status(500).send('Hubo un problema al registrar su usuario:', error); }
+  }).catch(error => { res.status(500).send(error) })
 };
 
-exports.signIn = async (req, res) => {
-  const { nombre, password } = req.body
-  const user = await usuario.findOne({ where: { nombre } }) 
+exports.signIn = (req, res) => {
+  if (!req.body.nombre || !req.body.password) return res.status(404).send('Credenciales no proporcionadas')
   
-  if (!user) return res.status(404).send('El usuario no existe')
+  const { dni, password } = req.body
+  usuario.findOne({ where: { dni } })
+    .then(user => {
+      if (!isValidPassword(password, user)) return res.status(401).send({ auth: false, token: null })
+      
+      const payload = {
+        userType: 'admin',
+        dni: user.dni,
+        nombre: user.nombre
+      }
 
-  const validPassword = await bcrypt.compare(password, user.password);
+      const token = jwt.sign(payload, config.secret, { expiresIn: '3s' })
 
-  if (!validPassword) return res.status(401).send({ auth: false, token: null })
-
-  const token = jwt.sign({ nombre }, config.secret, {
-    expiresIn: '2d'
-  })
-
-  res.status(200).json({ auth: true, token })
+      res.status(200).json({ auth: true, token })
+    })
+    .catch((error) => res.status(404).send(error))
 };
 
-exports.singOut = async (req, res) => {
+exports.signOut = (_, res) => {
   res.status(200).send({ auth: false, token: null })
 };

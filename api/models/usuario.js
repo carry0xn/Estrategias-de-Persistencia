@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {freezeTableName: true});
 
   usuario.associate = function (models){
-    //usuario.hasMany(models.materia)
+    usuario.hasOne(models.estudiante)
   }
   
   return usuario;

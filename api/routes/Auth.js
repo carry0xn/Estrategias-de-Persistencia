@@ -1,20 +1,20 @@
 const router = require('express').Router();
-const { singUp, singIn, singOut } = require('../controllers/authController')
+const { signUp, signIn, signOut } = require('../controllers/authController')
 
 /**
 * @swagger
 * path:
-* /api/docs:
-* get:
-*     summary: abc
-*     description: abc
+* /singup:
+* post:
+*     summary: Registers a new student in the database
+*     description: ABC
 *     produces:
 *       - application/json
 */
 
-router.post("/singup", singUp);
-router.post("/singin", singIn);
-router.post("/singout", singOut);
+router.post("/singup", signUp);
+router.post("/singin", signIn);
+router.post("/singout", signOut);
 
 /*
 const payload = {
