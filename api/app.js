@@ -3,7 +3,9 @@ const app = express();
 const logger = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const createError = require('http-errors');
 const { swaggerUI, swaggerSpec } = require('./swagger');
+const authRoutes = require('./routes/Auth');
 const carrerasRoutes = require('./routes/Carreras');
 const materiasRoutes = require('./routes/Materias');
 const usuariosRoutes = require('./routes/Usuarios');
@@ -17,20 +19,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
 
 // Pug
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'pug');
-// Vue
-// app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 // Swagger
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 // Routes
+app.use(authRoutes)
 app.use('/api/carreras', carrerasRoutes);
 app.use('/api/materias', materiasRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 
 // Handle Error
+
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;

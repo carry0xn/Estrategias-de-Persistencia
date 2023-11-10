@@ -4,8 +4,6 @@ const expect = chai.expect;
 //estilos  de chai, realiza aserciones sobre los resultados esperados
 const request = require('supertest');
 //hace solicitudes HTTP a la API y realizar aserciones sobre las respuestas
-const sinon = require('sinon');
-//biblioteca de espionaje, falsificación y simulación para JavaScript
 
 const app = require('../app.js');
 // Archivo de entrada de la API
@@ -27,7 +25,6 @@ describe('Test de Carreras', () => {
         'Licenciatura en Informática',
         'Tecnicatura Universitaria en Inteligencia Artificial'
       ];
-      const idsEsperados = [1, 2, 3, 4, 5, 6];
       // Configura el stub para devolver el mock de la respuesta esperada
       findAndCountAllStub.resolves({
         rows: [
@@ -41,32 +38,26 @@ describe('Test de Carreras', () => {
         count: 6,
       });
 
-    /*
-        // Realiza la solicitud y realiza las aserciones
-        const res = await request(app).get('/carrera');
-        
         // Verificar que la respuesta tenga el código 200
         expect(res.status).to.equal(200);
         // Verifica si la respuesta es un objeto
         expect(res.body).to.be.an('object');
-        // Verifica si existe la propiedad 'carreras'
-        expect(res.body).to.have.property('carreras');
         // Verifica si 'carreras' es un array
-        expect(res.body.carreras).to.be.an('array');
+        expect(res.body).to.be.an('array');
         // Verificar propiedades para cada carreras en el array
-        res.body.carreras.forEach((carrera, index) => {
+        res.body.forEach((carrera, index) => {
             // Verifica si la carrera es un objeto
             expect(carrera).to.be.an('object');
             // Verifica si la carrera tiene la propiedad 'id'
             expect(carrera).to.have.property('id');
             // Verifica si la carrera tiene la propiedad 'nombre'
             expect(carrera).to.have.property('nombre');
+            // Verifica si la carrera tiene la propiedad 'descripcion'
+            expect(carrera).to.have.property('descripcion');
             // Verifica si  la propiedad 'nombre' de carrera es la de los mocks
             expect(carrera.nombre).to.equal(nombresEsperados[index]);
-            // Verifica si  la propiedad 'id' de carrera es la de los mocks
-            expect(carrera.id).to.equal(idsEsperados[index]);
         });
-    */
+    
 
       // Restaura el comportamiento original del controlador de carreras
       findAndCountAllStub.restore();

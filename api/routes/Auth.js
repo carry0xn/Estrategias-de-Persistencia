@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario } = require('../controllers/usuarioController')
+const { singUp, singIn, singOut } = require('../controllers/authController')
 
 /**
 * @swagger
@@ -12,12 +12,9 @@ const { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario } =
 *       - application/json
 */
 
-router.get("/", getUsuarios);
-router.get("/:id", getUsuario);
-router.post("/", createUsuario);
-router.put("/:id", updateUsuario);
-router.delete("/:id", deleteUsuario);
-
+router.post("/singup", singUp);
+router.post("/singin", singIn);
+router.post("/singout", singOut);
 
 /*
 const payload = {

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'dni'
       }
     }
-  }, {});
+  }, {freezeTableName: true});
 
   administrador.associate = function (models){
     // Un administrador es un usuario

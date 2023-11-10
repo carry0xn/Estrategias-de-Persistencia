@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id' 
       }
     }
-  }, {});
+  }, {freezeTableName: true});
 
     estudiante.associate = function (models){
     //Un estudiante es un usuario

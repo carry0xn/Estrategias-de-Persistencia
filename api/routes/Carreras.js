@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const verifyToken = require('../auth/verifyToken');
 const { getCarreras, getCarrera, createCarrera, updateCarrera, deleteCarrera } = require('../controllers/carreraController')
 
 /**
@@ -14,7 +15,7 @@ const { getCarreras, getCarrera, createCarrera, updateCarrera, deleteCarrera } =
 
 router.get("/", getCarreras);
 router.get("/:id", getCarrera);
-router.post("/", createCarrera);
+router.post("/", verifyToken, createCarrera);
 router.put("/:id", updateCarrera);
 router.delete("/:id", deleteCarrera);
 

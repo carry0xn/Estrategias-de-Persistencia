@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER, // 'Pregrado' || 'Grado' || 'Posgrado'
       allowNull: false
     }
-  }, {});
+  }, {freezeTableName: true});
 
   carrera.associate = (models) => {
     // Una carrera tiene N materias

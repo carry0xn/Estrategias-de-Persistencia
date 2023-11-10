@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     picture: {
       type: DataTypes.STRING
     }
-  }, {});
+  }, {freezeTableName: true});
 
   usuario.associate = function (models){
     //usuario.hasMany(models.materia)

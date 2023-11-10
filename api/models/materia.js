@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
-  }, {});
+  }, {freezeTableName: true});
 
   materia.associate = function (models){
     // Una materia pertenece a N carreras

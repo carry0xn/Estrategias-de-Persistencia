@@ -5,6 +5,7 @@
     "database": "api_v1",
     "host": "localhost",
     "dialect": "mariadb",
+    "secret": "grupo-jr",
     "operatorsAliases": "0"
   },
   "production": {
@@ -13,6 +14,7 @@
     "database": "api_v1",
     "host": "localhost",
     "dialect": "mariadb",
+    "secret": "grupo-jr",
     "operatorsAliases": "0"
   }
 }

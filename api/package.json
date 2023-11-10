@@ -8,9 +8,10 @@
     "sass": "sass --watch ./views/styles/styles.sass ./public/stylesheets/styles.css"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.18.2",
     "express-vue": "^5.16.0",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^9.0.2",

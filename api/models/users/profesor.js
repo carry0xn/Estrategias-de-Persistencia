@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'dni'
       }
     }
-  }, {});
+  }, {freezeTableName: true});
 
   profesor.associate = function (models){
     // Un profesor es un usuario
