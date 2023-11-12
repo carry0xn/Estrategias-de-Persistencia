@@ -33,19 +33,19 @@ module.exports = (sequelize, DataTypes) => {
   materia.associate = function (models){
     // Una materia pertenece a N carreras
     //materia.belongsToMany(models.carrera)
-    materia.belongsTo(models.carrera, {
+    /*materia.belongsTo(models.carrera, {
       foreignKey: {
         fieldName: 'id_carrera',
         require: true
       }
-    })
+    })*/
     
     // Una materia es dictada por 1 profesor
     materia.belongsTo(models.profesor)
 
     // Una materia es inscripta por N estudiantes
-    materia.hasMany(models.estudiante, {through: 'inscripcion'})
-    materia.belongsToMany(models.estudiante, {through: 'inscripcion'})
+    //materia.hasMany(models.estudiante, {through: 'inscripcion'})
+    //materia.belongsToMany(models.estudiante, {through: 'inscripcion'})
   }
   
   return materia;

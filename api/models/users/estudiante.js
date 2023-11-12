@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     //Un estudiante tiene una carrera
     //estudiante.belongsTo(models.carrera, { foreignKey: 'id_carrera' });
     //Un estudiante se inscribe a N materias
-    estudiante.hasMany(models.materia, {through: 'inscripcion'})
+    //estudiante.hasMany(models.materia, {through: 'inscripcion'})
   }
   return estudiante;
 };
