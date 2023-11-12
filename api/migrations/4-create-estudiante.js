@@ -8,6 +8,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true
       },
+      datoExtra: {
+        type: Sequelize.STRING,
+      },
+      id_usuario: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

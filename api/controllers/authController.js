@@ -6,30 +6,43 @@ const config = require('../config/config')[process.env.NODE_ENV || 'production']
 const hashedPassword  = async (password) => bcrypt.hash(password, 10)
 const isValidPassword = async (password, user) => bcrypt.compare(password, user.password)
 
-exports.signUp = (req, res) => {
-  const { dni, nombre, email, picture, password } = req.body
-  console.log(req.body)
-  usuario.create({
-    dni,
-    nombre,
-    email,
-    picture,
-    password,//: hashedPassword(password)
-    estudiante: {
+exports.signUp = async (req, res) => {
+  try{
+    const { dni, nombre, email, picture, password } = req.body
+    
+    const usuarioCreado = await usuario.create({
+      dni,
+      nombre,
+      email,
+      picture,
+      password,//: hashedPassword(password)
+      estudiante: {
+        datoExtra: "abc"
+      }
+    }, {include: [estudiante]})
+    /*const usuarioCreado = await usuario.create({
+      dni,
+      nombre,
+      email,
+      picture,
+      password,//: hashedPassword(password)
+    })
 
-    }
-  }, {include: [estudiante]})
-  .then((estudianteCreado) => {
+    const estudianteCreado = await estudiante.create({
+      datoExtra: "abc",
+      id_usuario: usuarioCreado.dni
+    })*/
+
     const payload = {
-      role: 'admin',
-      dni: estudianteCreado.usuario.dni,
-      nombre: estudianteCreado.usuario.nombre,
+      ...usuarioCreado.dataValues,
+      estudiante: usuarioCreado.estudiante?.dataValues
     }
 
-    const token = jwt.sign(payload, config.secret, { expiresIn: '3s' })
+    const token = jwt.sign(payload, config.secret, { expiresIn: '10m' })
 
     res.json({ auth: true, token }); 
-  }).catch(error => { res.status(500).send(error) })
+  }
+  catch(error) { res.status(500).send(error); console.log(error) }
 };
 
 exports.signIn = (req, res) => {

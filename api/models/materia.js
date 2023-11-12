@@ -42,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     
     // Una materia es dictada por 1 profesor
     materia.belongsTo(models.profesor)
+
+    // Una materia es inscripta por N estudiantes
+    materia.hasMany(models.estudiante, {through: 'inscripcion'})
+    materia.belongsToMany(models.estudiante, {through: 'inscripcion'})
   }
   
   return materia;
