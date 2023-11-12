@@ -10,10 +10,17 @@ const findCarrera = (id, onSuccess) => {
     .catch(err => res.send(err));
 };
 
-exports.getCarreras = (_, res) => {
+exports.getCarreras = (req, res) => {
+  const page = req.query.page || 1;
+  const pageSize = parseInt(req.query.pageSize) || 5;
+
+  const offset = (page - 1) * pageSize;
   models.carrera
-    .findAll({
-      attributes: ["id", "nombre"]
+    .findAndCountAll({
+      attributes: ["id", "nombre"],
+      
+      limit: pageSize,
+      offset,
     })
     .then(carreras => res.send(carreras))
     .catch((err) => res.send(err));

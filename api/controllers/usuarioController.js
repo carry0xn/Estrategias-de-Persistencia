@@ -10,10 +10,18 @@ const findUsuario = (id, onSuccess) => {
     .catch(err => res.send(err));
 };
 
-exports.getUsuarios = (_, res) => {
+exports.getUsuarios = (req, res) => {
+  const page = req.query.page || 1;
+  const pageSize = parseInt(req.query.pageSize) || 5;
+
+  const offset = (page - 1) * pageSize;
+
   models.usuario
-    .findAll({
-      attributes: ["dni", "nombre"]
+    .findAndCountAll({
+      attributes: ["dni", "nombre", "role"],
+
+      limit: pageSize,
+      offset,
     })
     .then(usuarios => res.send(usuarios))
     .catch((err) => res.send(err));

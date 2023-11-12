@@ -21,11 +21,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     picture: {
       type: DataTypes.STRING
+    },
+    role: {
+      type: DataTypes.STRING
     }
   }, {freezeTableName: true});
 
   usuario.associate = function (models){
-    usuario.hasOne(models.estudiante, {foreignKey: 'id_usuario'})
+  //  usuario.hasOne(models.estudiante, {foreignKey: 'id_usuario'})
   }
   
   return usuario;

@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    id_profesor: {
+    id_usuario: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'profesor',
-        key: 'id'
+        model: 'usuario',
+        key: 'dni'
       }
     }
   }, {freezeTableName: true});
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     })*/
     
     // Una materia es dictada por 1 profesor
-    materia.belongsTo(models.profesor)
+    materia.belongsTo(models.usuario)
 
     // Una materia es inscripta por N estudiantes
     //materia.hasMany(models.estudiante, {through: 'inscripcion'})

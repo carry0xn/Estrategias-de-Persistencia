@@ -6,7 +6,10 @@
     "host": "localhost",
     "dialect": "mariadb",
     "secret": "grupo-jr",
-    "operatorsAliases": "0"
+    "operatorsAliases": "0",
+    "dialectOptions": {
+      "allowPublicKeyRetrieval": "true"
+    }    
   },
   "production": {
     "username": "root",
@@ -15,6 +18,9 @@
     "host": "localhost",
     "dialect": "mariadb",
     "secret": "grupo-jr",
-    "operatorsAliases": "0"
+    "operatorsAliases": "0",
+    "dialectOptions": {
+      "allowPublicKeyRetrieval": "true"
+    } 
   }
 }

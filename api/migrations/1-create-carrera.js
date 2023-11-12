@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       titulo: {
-        type: Sequelize.INTEGER, // 'Pregrado' || 'Grado' || 'Posgrado'
+        type: Sequelize.STRING,
         allowNull: false
       },
       createdAt: {

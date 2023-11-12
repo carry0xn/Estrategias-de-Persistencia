@@ -7,6 +7,8 @@ module.exports = {
             descripcion: '--',
             duracion: '2 Años y medio',
             titulo: 'Técnico/a Universitario/a en Programación',
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           {
             id: '2',
@@ -14,6 +16,8 @@ module.exports = {
             descripcion: '--',
             duracion: '5 Años',
             titulo: 'Licenciado/a en Gestión Ambiental',
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           {
             id: '3',
@@ -21,6 +25,8 @@ module.exports = {
             descripcion: '--',
             duracion: '4 Años',
             titulo: 'Profesora/a Universitario/a de Educación Física',
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           {
             id: '4',
@@ -28,6 +34,8 @@ module.exports = {
             descripcion: '--',
             duracion: '4 Años',
             titulo: 'Profesora/a Universitario/a de Letras',
+            createdAt: new Date(),
+            updatedAt: new Date(),
           },
           {
             id: '5',
@@ -35,6 +43,8 @@ module.exports = {
             descripcion: '--',
             duracion: '5 Años',
             titulo: 'Licenciado/a en Informática',
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           {
             id: '6',
@@ -42,6 +52,8 @@ module.exports = {
             descripcion: '--',
             duracion: '2 Años y medio',
             titulo: 'Técnico/a Universitario/a en Inteligencia Artificial',
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
         ],
         {},

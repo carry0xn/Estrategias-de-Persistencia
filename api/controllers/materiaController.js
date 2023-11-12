@@ -10,10 +10,17 @@ const findMateria = (id, onSuccess) => {
     .catch(err => res.send(err));
 };
 
-exports.getMaterias = (_, res) => {
+exports.getMaterias = (req, res) => {
+  const page = req.query.page || 1;
+  const pageSize = parseInt(req.query.pageSize) || 5;
+
+  const offset = (page - 1) * pageSize;
   models.materia
-    .findAll({
-      attributes: ["id", "nombre"]
+    .findAndCountAll({
+      attributes: ["id", "nombre"],
+
+      limit: pageSize,
+      offset,
     })
     .then(materias => res.send(materias))
     .catch((err) => res.send(err));

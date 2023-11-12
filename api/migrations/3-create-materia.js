@@ -23,11 +23,11 @@ module.exports = {
           key: 'id'
         }
       },
-      id_profesor: {
+      id_usuario: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'profesor',
-          key: 'id'
+          model: 'usuario',
+          key: 'dni'
         }
       },
       createdAt: {

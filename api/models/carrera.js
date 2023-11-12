@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     titulo: {
-      type: DataTypes.INTEGER, // 'Pregrado' || 'Grado' || 'Posgrado'
+      type: DataTypes.STRING,
       allowNull: false
     }
   }, {freezeTableName: true});

@@ -11,7 +11,7 @@ module.exports = function verifyToken(req, res, next) {
 
     // Almacenar el ID del usuario decodificado en req.userId
     req.userId = decoded.id;
-
+    
     next();
   });
 };

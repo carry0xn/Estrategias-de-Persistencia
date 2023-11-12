@@ -1,12 +1,15 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-      await queryInterface.bulkInsert('administrador', [
+    await queryInterface.bulkInsert('usuario', [
         {
           dni: '43345678',
-          nombre: 'Cristian Juarez',
+          nombre: 'Crístian Juarez',
           email: 'cristianjuarez@gmail.com',
           password: '321',
           picture: '--',
+          role: 'administrador',
+          createdAt: new Date(),
+          updatedAt: new Date()
       },
       {
           dni: '45765432',
@@ -14,11 +17,13 @@ module.exports = {
           email: 'rodriguez@gmail.com',
           password: '321',
           picture: '--',
-      },   
-      ]);
+          role: 'administrador',
+          createdAt: new Date(),
+          updatedAt: new Date()
+      },]);
     },
   
     down: async (queryInterface, Sequelize) => {
-      await queryInterface.bulkDelete('administrador', null, {});
+      await queryInterface.bulkDelete('usuario', null, {});
     },
 };
