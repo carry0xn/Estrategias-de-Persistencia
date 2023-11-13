@@ -1,19 +1,22 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config/config');
+const config = require('../config/config')[process.env.NODE_ENV || 'production'];
 
-module.exports = function verifyToken(req, res, next) {
-  const token = req.headers['x-access-token'];
+module.exports = function verifyToken(roles=[]) {
+  return function(req, res, next){
+    const token = req.headers['x-access-token'];
 
-  if (!token) return res.status(401).json({ auth: false, message: 'Token no proporcionado' });
+    if (!token) return res.status(401).json({ auth: false, message: 'Token no proporcionado' });
 
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) return res.status(401).json({ auth: false, message: 'Token inválido' });
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) return res.status(401).json({ auth: false, message: 'Token inválido' });
 
-    // Almacenar el ID del usuario decodificado en req.userId
-    req.userId = decoded.id;
-    
-    next();
-  });
+      if(roles.length !== 0 && !roles.includes(decoded.role)) return res.status(401).json({ auth: false, message: 'No autorizado :(' });
+      
+      req.user = decoded;
+      
+      next();
+    });
+  }
 };
 
 

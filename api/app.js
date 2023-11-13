@@ -8,6 +8,7 @@ const { swaggerUI, swaggerSpec } = require('./swagger');
 const authRoutes = require('./routes/Auth');
 const carrerasRoutes = require('./routes/Carreras');
 const materiasRoutes = require('./routes/Materias');
+const inscripcionesRoutes = require('./routes/Inscripciones');
 const usuariosRoutes = require('./routes/Usuarios');
 
 const PORT = process.env.PORT || 3000;
@@ -26,10 +27,11 @@ app.set('view engine', 'pug');
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 // Routes
-app.use(authRoutes)
-app.use('/api/carreras', carrerasRoutes);
-app.use('/api/materias', materiasRoutes);
-app.use('/api/usuarios', usuariosRoutes);
+app.use('/auth', authRoutes)
+app.use('/carreras', carrerasRoutes);
+app.use('/materias', materiasRoutes);
+app.use('/usuarios', usuariosRoutes);
+app.use('/inscripciones', inscripcionesRoutes);
 
 // Handle Error
 

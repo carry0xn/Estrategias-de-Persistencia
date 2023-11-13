@@ -22,6 +22,10 @@ module.exports = {
       picture: {
         type: Sequelize.STRING
       },
+      role: {
+        allowNull: false,
+        type: Sequelize.STRING 
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -29,10 +33,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      role: {
-        allowNull: false,
-        type: Sequelize.STRING 
       }
     });
   },

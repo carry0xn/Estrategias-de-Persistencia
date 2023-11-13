@@ -15,8 +15,8 @@ const { getCarreras, getCarrera, createCarrera, updateCarrera, deleteCarrera } =
 
 router.get("/", getCarreras);
 router.get("/:id", getCarrera);
-router.post("/", createCarrera);
-router.put("/:id", updateCarrera);
-router.delete("/:id", deleteCarrera);
+router.post("/", verifyToken(['administrador']), createCarrera);
+router.put("/:id", verifyToken(['administrador']), updateCarrera);
+router.delete("/:id", verifyToken(['administrador']), deleteCarrera);
 
 module.exports = router;

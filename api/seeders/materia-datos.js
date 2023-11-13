@@ -6,7 +6,7 @@ module.exports = {
             nombre: 'Programación de Objetos 1',
             descripcion: '--',
             id_carrera: '1',
-            id_usuario: '45765432', //profesor
+            id_profesor: '45765432', //profesor
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -15,7 +15,7 @@ module.exports = {
             nombre: 'Introduccion a la Inteligencia Artificial',
             descripcion: '--',
             id_carrera: '6',
-            id_usuario: '45765432',
+            id_profesor: '45765432',
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -24,7 +24,7 @@ module.exports = {
             nombre: 'Sistemas Distribuidos',
             descripcion: '--',
             id_carrera: '5',
-            id_usuario: '45765432',
+            id_profesor: '45765432',
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -33,7 +33,7 @@ module.exports = {
             nombre: 'Quimica',
             descripcion: '--',
             id_carrera: '2',
-            id_usuario: '45765432',
+            id_profesor: '45765432',
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -42,7 +42,7 @@ module.exports = {
             nombre: 'Taller de Marcado y Tecnologia Web',
             descripcion: '--',
             id_carrera: '1',
-            id_usuario: '45765432',
+            id_profesor: '45765432',
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -51,7 +51,7 @@ module.exports = {
             nombre: 'Filosofia de la Educacion',
             descripcion: '--',
             id_carrera: '3',
-            id_usuario: '45765432',
+            id_profesor: '45765432',
             createdAt: new Date(),
             updatedAt: new Date()
           }          

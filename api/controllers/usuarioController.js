@@ -1,12 +1,11 @@
 const models = require("../models");
 
-const findUsuario = (id, onSuccess) => {
+const findUsuario = (dni, onSuccess, req, res) => {
   models.usuario
     .findOne({
-      attributes: ["dni", "nombre"],
-      where: { id }
+      where: { dni }
     })
-    .then(usuario => (usuario ? onSuccess(usuario) : res.status(404)))
+    .then(usuario => (usuario ? onSuccess(usuario, req, res) : res.status(404).send()))
     .catch(err => res.send(err));
 };
 
@@ -28,7 +27,7 @@ exports.getUsuarios = (req, res) => {
 }
 
 exports.getUsuario = (req, res) => {
-  findUsuario(req.params.id, usuario => res.send(usuario));
+  findUsuario(req.params.id, usuario => res.send(usuario), req, res);
 }
 
 exports.createUsuario = (req, res) => {
@@ -39,14 +38,23 @@ exports.createUsuario = (req, res) => {
 }
 
 exports.updateUsuario = (req, res) => {
-  const onSuccess = usuario => {
+  const isAdmin = req.user.role === 'administrador'
+  if(req.user.dni.toString() !== req.params.id && !isAdmin) res.status(401).send("Not Authorized")
+
+  const onSuccess = (usuario, req, res) => {
     usuario
-      .update({ nombre: req.body.nombre }, { fields: ["nombre"] })
-      .then(() => res.status(200))
+      .update({
+        nombre: req.body.nombre,
+        email: req.body.email,
+        picture: req.body.picture,
+        password: req.body.password,
+        role: isAdmin ? req.body.role : usuario.role
+      })
+      .then(() => res.status(200).send())
       .catch((err) => res.send(err));
   }
 
-  findUsuario(req.params.id, onSuccess);
+  findUsuario(req.params.id, onSuccess, req, res);
 }
 
 exports.deleteUsuario = (req, res) => {

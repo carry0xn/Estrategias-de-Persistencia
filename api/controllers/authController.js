@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { usuario, estudiante} = require('../models');
+const { usuario } = require('../models');
 const config = require('../config/config')[process.env.NODE_ENV || 'production'];
 
 const hashedPassword  = async (password) => bcrypt.hash(password, 10)
@@ -15,23 +15,9 @@ exports.signUp = async (req, res) => {
       nombre,
       email,
       picture,
-      password,//: hashedPassword(password)
-      estudiante: {
-        datoExtra: "abc"
-      }
-    }, {include: [estudiante]})
-    /*const usuarioCreado = await usuario.create({
-      dni,
-      nombre,
-      email,
-      picture,
-      password,//: hashedPassword(password)
+      password: hashedPassword(password),
+      role: 'estudiante'
     })
-
-    const estudianteCreado = await estudiante.create({
-      datoExtra: "abc",
-      id_usuario: usuarioCreado.dni
-    })*/
 
     const payload = {
       ...usuarioCreado.dataValues,
@@ -40,13 +26,13 @@ exports.signUp = async (req, res) => {
 
     const token = jwt.sign(payload, config.secret, { expiresIn: '10m' })
 
-    res.json({ auth: true, token }); 
+    res.status(201).json({ auth: true, token }); 
   }
   catch(error) { res.status(500).send(error); console.log(error) }
 };
 
 exports.signIn = (req, res) => {
-  if (!req.body.nombre || !req.body.password) return res.status(404).send('Credenciales no proporcionadas')
+  if (!req.body.dni || !req.body.password) return res.status(404).send('Credenciales no proporcionadas')
   
   const { dni, password } = req.body
   usuario.findOne({ where: { dni } })
@@ -54,16 +40,16 @@ exports.signIn = (req, res) => {
       if (!isValidPassword(password, user)) return res.status(401).send({ auth: false, token: null })
       
       const payload = {
-        userType: 'admin',
         dni: user.dni,
-        nombre: user.nombre
+        nombre: user.nombre,
+        role: user.role
       }
 
-      const token = jwt.sign(payload, config.secret, { expiresIn: '3s' })
+      const token = jwt.sign(payload, config.secret, { expiresIn: '1w' })
 
       res.status(200).json({ auth: true, token })
     })
-    .catch((error) => res.status(404).send(error))
+    .catch((error) => res.status(500).send(error))
 };
 
 exports.signOut = (_, res) => {

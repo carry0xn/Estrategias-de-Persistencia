@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const verifyToken = require('../auth/verifyToken')
 const { getMaterias, getMateria, createMateria, updateMateria, deleteMateria } = require('../controllers/materiaController')
 
 /**
@@ -12,10 +13,10 @@ const { getMaterias, getMateria, createMateria, updateMateria, deleteMateria } =
 *       - application/json
 */
 
-router.get("/", getMaterias);
-router.get("/:id", getMateria);
-router.post("/", createMateria);
-router.put("/:id", updateMateria);
-router.delete("/:id", deleteMateria);
+router.get("/", verifyToken(), getMaterias);
+router.get("/:id", verifyToken(), getMateria);
+router.post("/", verifyToken(['administrador']), createMateria);
+router.put("/:id", verifyToken(['administrador']), updateMateria);
+router.delete("/:id", verifyToken(['administrador']), deleteMateria);
 
 module.exports = router;

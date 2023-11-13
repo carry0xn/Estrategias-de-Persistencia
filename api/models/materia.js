@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    id_usuario: {
+    id_profesor: {
       type: DataTypes.INTEGER,
       references: {
         model: 'usuario',
@@ -44,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     materia.belongsTo(models.usuario)
 
     // Una materia es inscripta por N estudiantes
-    //materia.hasMany(models.estudiante, {through: 'inscripcion'})
-    //materia.belongsToMany(models.estudiante, {through: 'inscripcion'})
+    materia.belongsToMany(models.usuario, {through: 'inscripcion'})
+    //materia.hasMany(models.usuario, {through: 'inscripcion'})
   }
   
   return materia;

@@ -22,7 +22,7 @@ tags:
     description: Endpoints relacionados con los logs de la aplicación
 
 paths:
-  /auth:
+  /auth/singup:
     post:
       summary: Autenticación de usuario
       tags:
@@ -34,17 +34,48 @@ paths:
             schema:
               type: object
               properties:
-                email:
+                dni:
+                  type: string
+                nombre:
                   type: string
                 password:
                   type: string
               example:
-                email: test@test.com
-                password: password
+                dni: 44258120
+                nombre: Walter White
+                email: walterwhite@albuquerque.com
+                picture: https://avatars.githubusercontent.com/u/84170516
+                password: abcdef
+
+      responses:
+        201:
+          description: Usuario creado exitosamente
+        500:
+          description: Error interno al generar usuario
+
+  /auth/singin:
+    post:
+      summary: Autenticación de usuario
+      tags:
+        - Autenticacion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dni:
+                  type: string
+                password:
+                  type: string
+              example:
+                dni: 44258120
+                password: abcdef
       responses:
         200:
           description: Autenticación exitosa
-        400:
+        401:
           description: Credenciales incorrectas
         404:
           description: Usuario no encontrado
@@ -54,6 +85,13 @@ paths:
   /carreras:
     get:
       summary: Obtiene todas las carreras
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Indice de la paginacion
       tags:
         - Carreras
       responses:
@@ -73,10 +111,20 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                nombre:
+                  type: string
+                descripcion:
+                  type: string
+                duracion:
+                  type: string
+                titulo:
                   type: string
               example:
-                name: Nombre de la carrera
+                nombre: Licenciatura en Informática
+                descripcion: Descripcion de la carrera
+                duracion: 5 Años
+                titulo: Licenciado/a en Informática
+
       security:
         - BearerAuth: []
       responses:
@@ -126,7 +174,7 @@ paths:
         '500':
           description: Error al buscar o eliminar la carrera
 
-  /users:
+  /usuarios:
     get:
       summary: Obtiene todos los usuarios
       tags:
@@ -393,7 +441,7 @@ paths:
         '500':
           description: Error al buscar las materias
 
-  /inscripcion/materia/{materia_id}/usuario/{usuario_id}:
+  /inscripciones:
     post:
       summary: Realiza la inscripción de un usuario a una materia
       tags:
@@ -420,176 +468,3 @@ paths:
           description: Usuario o materia no encontrados
         '500':
           description: Error al intentar realizar la inscripción
-
-  /activity-logs:
-    get:
-      summary: Obtiene todos los logs
-      tags:
-        - Logs
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Lista de logs obtenida exitosamente
-        '500':
-          description: Error al obtener los logs
-
-  /activity-logs/{id}:
-    get:
-      summary: Obtiene un log por ID
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: ID del log a buscar
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Log encontrado exitosamente
-        '404':
-          description: Log no encontrado
-        '500':
-          description: Error al buscar el log
-
-  /activity-logs/{id_usuario}:
-    get:
-      summary: Obtiene los logs por ID de usuario
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: id_usuario
-          schema:
-            type: string
-          required: true
-          description: ID del usuario para filtrar los logs
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Logs encontrados exitosamente
-        '500':
-          description: Error al obtener los logs por ID de usuario
-
-  /activity-logs/metodo/{metodo_http}:
-    get:
-      summary: Obtiene los logs por método HTTP
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: metodo_http
-          schema:
-            type: string
-          required: true
-          description: Método HTTP para filtrar los logs
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Logs encontrados exitosamente
-        '500':
-          description: Error al obtener los logs por método HTTP
-
-  /activity-logs/url/{url_peticion}:
-    get:
-      summary: Obtiene los logs por endpoint de URL
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: url_peticion
-          schema:
-            type: string
-          required: true
-          description: Endpoint de URL para filtrar los logs
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Logs encontrados exitosamente
-        '500':
-          description: Error al obtener los logs por endpoint de URL
-
-  /activity-logs/fecha/{fecha_exacta}:
-    get:
-      summary: Obtiene los logs por fecha exacta
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: fecha_exacta
-          schema:
-            type: string
-          required: true
-          description:
-            - Fecha exacta para filtrar los logs
-            - Formato: yyyy-mm-dd
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Logs encontrados exitosamente
-        '500':
-          description: Error al obtener los logs por fecha exacta
-
-  /activity-logs/fecha/{fecha_inicio}/{fecha_fin}:
-    get:
-      summary: Obtiene los logs entre dos fechas
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: fecha_inicio
-          schema:
-            type: string
-          required: true
-          description:
-            - Fecha de inicio para filtrar los logs
-            - Formato: yyyy-mm-dd
-        - in: path
-          name: fecha_fin
-          schema:
-            type: string
-          required: true
-          description:
-            - Fecha de fin para filtrar los logs
-            - Formato: yyyy-mm-dd
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Logs encontrados exitosamente
-        '500':
-          description: Error al obtener los logs entre dos fechas
-
-  /activity-logs/duracion/{duracion_min}/{duracion_max}:
-    get:
-      summary: Obtiene los logs por rango de duración
-      tags:
-        - Logs
-      parameters:
-        - in: path
-          name: duracion_min
-          schema:
-            type: integer
-          required: true
-          description: Duración mínima para filtrar los logs
-        - in: path
-          name: duracion_max
-          schema:
-            type: integer
-          required: true
-          description: Duración máxima para filtrar los logs
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Logs encontrados exitosamente
-        '500':
-          description: Error al obtener los logs por rango de duración

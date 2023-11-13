@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const verifyToken = require('../auth/verifyToken')
 const { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario } = require('../controllers/usuarioController')
 
 /**
@@ -12,10 +13,10 @@ const { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario } =
 *       - application/json
 */
 
-router.get("/", getUsuarios);
-router.get("/:id", getUsuario);
-router.post("/", createUsuario);
-router.put("/:id", updateUsuario);
-router.delete("/:id", deleteUsuario);
+router.get("/", verifyToken(), getUsuarios);
+router.get("/:id", verifyToken(), getUsuario);
+router.post("/", verifyToken(['administrador']), createUsuario);
+router.put("/:id", verifyToken(), updateUsuario);
+router.delete("/:id", verifyToken(['administrador']), deleteUsuario);
 
 module.exports = router;
