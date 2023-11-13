@@ -18,8 +18,6 @@ tags:
     description: Endpoints relacionados con materias
   - name: Inscripción
     description: Endpoints relacionados con las inscripciones
-  - name: Logs
-    description: Endpoints relacionados con los logs de la aplicación
 
 paths:
   /auth/singup:
