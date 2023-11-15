@@ -38,12 +38,15 @@ paths:
                   type: string
                 password:
                   type: string
+                role:             
+                  type: string    
               example:
                 dni: 44258120
                 nombre: Walter White
                 email: walterwhite@albuquerque.com
                 picture: https://avatars.githubusercontent.com/u/84170516
                 password: abcdef
+                role: profesor
 
       responses:
         201:
@@ -206,12 +209,15 @@ paths:
                   type: string
                 password:
                   type: string
+                role:             
+                  type: string    
               example:
                 name: Nombre del usuario
                 lastname: Apellido del usuario
                 dni: DNI del usuario
                 email: Correo electrónico del usuario
                 password: Contraseña del usuario
+                role: estudiante  
       security:
         - BearerAuth: []
       responses:
@@ -315,9 +321,12 @@ paths:
                   type: string
                 carrera_id:
                   type: string
+                profesor_id:            
+                  type: integer         
               example:
                 name: Nombre de la materia
                 carrera_id: ID de la carrera
+                profesor_id: 44569863   
       security:
         - BearerAuth: []
       responses:

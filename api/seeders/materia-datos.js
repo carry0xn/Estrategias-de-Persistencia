@@ -6,7 +6,7 @@ module.exports = {
             nombre: 'Programación de Objetos 1',
             descripcion: '--',
             id_carrera: '1',
-            id_profesor: '45765432', //profesor
+            id_profesor: '45765432', 
             createdAt: new Date(),
             updatedAt: new Date()
           },
