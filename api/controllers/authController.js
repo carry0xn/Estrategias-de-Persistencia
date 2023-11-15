@@ -8,6 +8,7 @@ const isValidPassword = async (password, user) => bcrypt.compare(password, user.
 
 exports.signUp = async (req, res) => {
   try{
+    console.log(req.body)
     const { dni, nombre, email, picture, password } = req.body
     
     const usuarioCreado = await usuario.create({
@@ -15,13 +16,12 @@ exports.signUp = async (req, res) => {
       nombre,
       email,
       picture,
-      password: hashedPassword(password),
+      password, //hashedPassword(password),
       role: 'estudiante'
     })
 
     const payload = {
-      ...usuarioCreado.dataValues,
-      estudiante: usuarioCreado.estudiante?.dataValues
+      ...usuarioCreado.dataValues
     }
 
     const token = jwt.sign(payload, config.secret, { expiresIn: '10m' })
