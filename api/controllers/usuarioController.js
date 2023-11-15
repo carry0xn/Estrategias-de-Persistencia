@@ -65,5 +65,5 @@ exports.deleteUsuario = (req, res) => {
       .catch((err) => res.send(err));
   }
 
-  findUsuario(req.params.id, onSuccess);
+  findUsuario(req.params.id, onSuccess, req, res);
 }

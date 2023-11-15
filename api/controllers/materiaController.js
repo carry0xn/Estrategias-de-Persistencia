@@ -1,12 +1,12 @@
 const models = require("../models");
 
-const findMateria = (id, onSuccess) => {
+const findMateria = (id, onSuccess, req, res) => {
   models.materia
     .findOne({
       attributes: ["id", "nombre"],
       where: { id }
     })
-    .then(materia => (materia ? onSuccess(materia) : res.status(404)))
+    .then(materia => (materia ? onSuccess(materia, req, res) : res.status(404)))
     .catch(err => res.send(err));
 };
 

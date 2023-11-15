@@ -153,6 +153,11 @@ paths:
           description: Carrera no encontrada
         '500':
           description: Error al buscar la carrera
+    
+    put:
+      summary: Actualizar una carrera por ID
+      tags:
+        - Carreras
 
     delete:
       summary: Elimina una carrera por ID
@@ -188,45 +193,7 @@ paths:
         '500':
           description: Error al obtener los usuarios
 
-    post:
-      summary: Crea un nuevo usuario
-      tags:
-        - Usuarios
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                lastname:
-                  type: string
-                dni:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
-                role:             
-                  type: string    
-              example:
-                name: Nombre del usuario
-                lastname: Apellido del usuario
-                dni: DNI del usuario
-                email: Correo electrónico del usuario
-                password: Contraseña del usuario
-                role: estudiante  
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Usuario creado exitosamente
-        '500':
-          description: Error al crear el usuario
-
-  /users/{id}:
+  /usuarios/{id}:
     get:
       summary: Obtiene un usuario por ID
       tags:
@@ -268,33 +235,24 @@ paths:
           description: Usuario no encontrado
         '500':
           description: Error al buscar o eliminar el usuario
-
-  /users/{pagina_actual}/{cantidad_a_ver}:
-    get:
-      summary: Obtiene la cantidad de usuarios que quiera en la pagina que quiera.
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: pagina_actual
-          schema:
-            type: string
-          required: true
-          description: Pagina actual que desea ver
-        - in: path
-          name: cantidad_a_ver
-          schema:
-            type: string
-          required: true
-          description: Cantidad de usuarios por pagina que desea ver
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: Lista de usuarios obtenida exitosamente
-        '500':
-          description: Error al obtener los usuarios
-
+    put:
+        summary: Actualiza un usuario por ID
+        tags:
+          - Usuarios
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            description: ID de la materia a buscar
+        responses:
+          '200':
+            description: Materia encontrada exitosamente
+          '404':
+            description: Materia no encontrada
+          '500':
+            description: Error al buscar la materia
   /materias:
     get:
       summary: Obtiene todas las materias
@@ -354,6 +312,24 @@ paths:
           description: Materia no encontrada
         '500':
           description: Error al buscar la materia
+    put:
+      summary: Actualiza una materia por ID
+      tags:
+        - Materias
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID de la materia a buscar
+      responses:
+        '200':
+          description: Materia encontrada exitosamente
+        '404':
+          description: Materia no encontrada
+        '500':
+          description: Error al buscar la materia
 
     delete:
       summary: Elimina una materia por ID
@@ -375,78 +351,6 @@ paths:
           description: Materia no encontrada
         '500':
           description: Error al buscar o eliminar la materia
-
-  /inscripcion/carrera/{carrera_id}/usuario/{usuario_id}:
-    post:
-      summary: Realiza la inscripción de un usuario a una carrera
-      tags:
-        - Inscripción
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: carrera_id
-          schema:
-            type: string
-          required: true
-          description: ID de la carrera a la que se desea inscribir
-        - in: path
-          name: usuario_id
-          schema:
-            type: string
-          required: true
-          description: ID del usuario que desea inscribirse
-      responses:
-        '200':
-          description: Inscripción exitosa
-        '404':
-          description: Usuario o carrera no encontrados
-        '500':
-          description: Error al intentar realizar la inscripción
-
-  /inscripcion/carrera/usuario/{usuario_id}:
-    get:
-      summary: Realiza la consulta de las carreras a las que esta inscripto un usuario
-      tags:
-        - Inscripción
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: usuario_id
-          schema:
-            type: string
-          required: true
-          description: ID del usuario al que desea buscar sus carreras inscriptas
-      responses:
-        '200':
-          description: Carreras encontradas exitosamente
-        '404':
-          description: Carreras no encontradas
-        '500':
-          description: Error al buscar las carreras
-
-  /inscripcion/materia/usuario/{usuario_id}:
-    get:
-      summary: Realiza la consulta de las materias a las que esta inscripto un usuario
-      tags:
-        - Inscripción
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: usuario_id
-          schema:
-            type: string
-          required: true
-          description: ID del usuario al que desea buscar sus materias inscriptas
-      responses:
-        '200':
-          description: Materias encontradas exitosamente
-        '404':
-          description: Materias no encontradas
-        '500':
-          description: Error al buscar las materias
 
   /inscripciones:
     post:
@@ -475,3 +379,45 @@ paths:
           description: Usuario o materia no encontrados
         '500':
           description: Error al intentar realizar la inscripción
+    get:
+      summary: Realiza la consulta de todas las inscripciones en el sistema
+      tags:
+        - Inscripción
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: usuario_id
+          schema:
+            type: string
+          required: true
+          description: ID del usuario al que desea buscar sus carreras inscriptas
+      responses:
+        '200':
+          description: Carreras encontradas exitosamente
+        '404':
+          description: Carreras no encontradas
+        '500':
+          description: Error al buscar las carreras
+
+    delete:
+      summary: Elimina una inscripcion dada un ID
+      tags:
+        - Inscripción
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: usuario_id
+          schema:
+            type: string
+          required: true
+          description: ID del usuario al que desea buscar sus carreras inscriptas
+      responses:
+        '200':
+          description: Carreras encontradas exitosamente
+        '404':
+          description: Carreras no encontradas
+        '500':
+          description: Error al buscar las carreras
+
