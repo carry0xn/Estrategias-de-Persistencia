@@ -155,9 +155,23 @@ paths:
           description: Error al buscar la carrera
     
     put:
-      summary: Actualizar una carrera por ID
-      tags:
-        - Carreras
+        summary: Actualiza una carrera por ID
+        tags:
+          - Carreras
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            description: ID de la carrera a actualizar
+        responses:
+          '200':
+            description: Carrera actualizada exitosamente
+          '404':
+            description: Carrera no encontrada
+          '500':
+            description: Error al actualizar la carrera
 
     delete:
       summary: Elimina una carrera por ID
@@ -245,14 +259,15 @@ paths:
             schema:
               type: string
             required: true
-            description: ID de la materia a buscar
+            description: ID del usuario a actualizar
         responses:
           '200':
-            description: Materia encontrada exitosamente
+            description: Usuario actualizado exitosamente
           '404':
-            description: Materia no encontrada
+            description: Usuario no encontrado
           '500':
-            description: Error al buscar la materia
+            description: Error al actualizar el usuario
+
   /materias:
     get:
       summary: Obtiene todas las materias
@@ -322,14 +337,14 @@ paths:
           schema:
             type: string
           required: true
-          description: ID de la materia a buscar
+          description: ID de la materia a actualizar
       responses:
         '200':
-          description: Materia encontrada exitosamente
+          description: Materia actualizada exitosamente
         '404':
           description: Materia no encontrada
         '500':
-          description: Error al buscar la materia
+          description: Error al actualizar la materia
 
     delete:
       summary: Elimina una materia por ID
@@ -408,16 +423,16 @@ paths:
         - BearerAuth: []
       parameters:
         - in: path
-          name: usuario_id
+          name: id
           schema:
             type: string
           required: true
-          description: ID del usuario al que desea buscar sus carreras inscriptas
+          description: ID de la inscripcion que desea eliminar
       responses:
         '200':
-          description: Carreras encontradas exitosamente
+          description: Inscripción eliminada exitosamente
         '404':
-          description: Carreras no encontradas
+          description: Inscripción no encontrada
         '500':
-          description: Error al buscar las carreras
+          description: Error al eliminar la inscripcion
 
